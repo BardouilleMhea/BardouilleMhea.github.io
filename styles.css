@@ -1,0 +1,1141 @@
+/* ==========================================================================
+   THE BARDOUILLE COLLECTION — card catalog stylesheet
+   One researcher, filed alphabetically by surname.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* The desk */
+  --desk:       oklch(0.17 0.012 70);
+  --desk-deep:  oklch(0.13 0.010 70);
+  --desk-grain: oklch(0.20 0.014 70);
+
+  /* The paper */
+  --paper:       oklch(0.955 0.017 95);
+  --paper-aged:  oklch(0.925 0.022 90);
+  --paper-shade: oklch(0.86 0.020 90);
+
+  /* The rules (the printed kind) */
+  --rule-red:  oklch(0.55 0.16 25 / 0.50);
+  --rule-blue: oklch(0.58 0.06 245 / 0.28);
+
+  /* The ink */
+  --ink:       oklch(0.26 0.02 265);
+  --ink-soft:  oklch(0.40 0.02 265);
+  --ink-faint: oklch(0.54 0.015 265);
+
+  /* Accents — tab colors match the filing scheme, stamp is stamp-colored */
+  --tab-green: oklch(0.46 0.07 160);
+  --tab-teal:  oklch(0.50 0.07 195);
+  --tab-amber: oklch(0.58 0.10 70);
+  --stamp:     oklch(0.52 0.17 25);
+  --brass:     oklch(0.72 0.09 85);
+  --link-ink:  oklch(0.42 0.11 250);
+
+  /* Type */
+  --serif: 'Spectral', Georgia, 'Times New Roman', serif;
+  --tw: 'Courier Prime', 'Courier New', ui-monospace, monospace;
+
+  /* Geometry — index cards are ruled at fixed intervals; so are we */
+  --line: 26px;
+  --radius: 5px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.14s var(--ease-out);
+  --transition-base: all 0.22s var(--ease-out);
+
+  /* Physical shadows — cards sit ON the desk, they do not float */
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.35), 5px 6px 0 oklch(0 0 0 / 0.26);
+  --shadow-lift: 0 2px 5px oklch(0 0 0 / 0.35), 8px 10px 0 oklch(0 0 0 / 0.30);
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  isolation: isolate;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--serif);
+  color: var(--ink);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      oklch(1 0 0 / 0.008) 0 2px,
+      transparent 2px 7px
+    ),
+    radial-gradient(120% 90% at 50% -10%, var(--desk-grain), var(--desk) 55%, var(--desk-deep) 100%);
+  background-attachment: fixed;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--tw);
+  font-size: 0.8rem;
+  border-radius: var(--radius);
+  transition: var(--transition-fast);
+
+  &:focus-visible { top: var(--space-4); }
+}
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+[hidden] { display: none !important; }
+
+/* Controls that only work with catalog.js stay out of the no-JS version. */
+html:not(.js) .js-only { display: none !important; }
+html:not(.js) a[href="#"][aria-disabled="true"] {
+  pointer-events: none;
+  cursor: default;
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-bottom-color: transparent;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+::selection {
+  background: oklch(0.88 0.16 100 / 0.85); /* highlighter, the yellow kind */
+  color: oklch(0.20 0.02 265);
+}
+
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+}
+
+/* --------------------------------------------------------------------------
+   Drawer label — the brass plate at the top of every drawer
+   -------------------------------------------------------------------------- */
+
+.drawer-label {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6) var(--space-4) 0;
+}
+
+.drawer-plate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--tw);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-aged);
+  background: oklch(0.22 0.02 80);
+  border: 1px solid var(--brass);
+  border-radius: var(--radius);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.08),
+    0 2px 4px oklch(0 0 0 / 0.4);
+
+  /* The drawer handle, purely ceremonial */
+  &::before, &::after {
+    content: "";
+    width: 22px;
+    height: 7px;
+    border: 1.5px solid var(--brass);
+    border-radius: 4px;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer-plate {
+    max-width: calc(100vw - 2rem);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    padding-inline: var(--space-3);
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .drawer-plate::before,
+  .drawer-plate::after { display: none; }
+}
+
+.breadcrumb {
+  display: block;
+  width: fit-content;
+  margin: var(--space-5) auto 0;
+  font-family: var(--tw);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--paper-aged);
+  text-decoration: none;
+  border-bottom: 1px dashed oklch(0.72 0.09 85 / 0.5);
+  padding-bottom: 2px;
+  transition: var(--transition-fast);
+
+  &:hover { color: var(--brass); border-bottom-style: solid; }
+}
+
+/* --------------------------------------------------------------------------
+   The index card
+   -------------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  /* Tilt: cards were filed by hand */
+  --tilt: 0deg;
+  transform: rotate(var(--tilt));
+}
+
+.tilt-l { --tilt: -1.1deg; }
+.tilt-r { --tilt: 1.2deg; }
+
+.card-head {
+  padding: var(--space-3) var(--space-5) var(--space-2);
+  background: var(--paper);
+  border-bottom: 1.5px solid var(--rule-red);
+  border-radius: var(--radius) var(--radius) 0 0;
+
+  h1, h2, h3 {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+}
+
+.card-body {
+  flex: 1;
+  padding: 0 var(--space-5) var(--space-4);
+  line-height: var(--line);
+  font-size: 1rem;
+  /* Ruled lines, phase-locked to the text sitting on them */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--line) - 1px),
+    var(--rule-blue) calc(var(--line) - 1px) var(--line)
+  );
+  background-origin: content-box;
+
+  p { margin: 0 0 var(--space-3); }
+  p:last-child { margin-bottom: 0; }
+}
+
+.card--wide {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+/* Catalog metadata line above the title */
+.catalog-no {
+  margin: 0 0 var(--space-1);
+  font-family: var(--tw);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Tabs — the part of the divider that sticks up out of the drawer
+   -------------------------------------------------------------------------- */
+
+.tab {
+  position: absolute;
+  top: -1.45rem;
+  left: var(--space-5);
+  padding: 0.2rem 0.9rem 0.35rem;
+  font-family: var(--tw);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: 2px -2px 0 oklch(0 0 0 / 0.18);
+}
+
+.tab--green { background: var(--tab-green); }
+.tab--teal  { background: var(--tab-teal); }
+.tab--amber { background: var(--tab-amber); }
+
+/* --------------------------------------------------------------------------
+   Stamps — wielded with bureaucratic confidence
+   -------------------------------------------------------------------------- */
+
+.stamp {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-5);
+  padding: 0.15rem 0.7rem;
+  font-family: var(--tw);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  border: 2px solid oklch(0.52 0.17 25 / 0.75);
+  border-radius: 3px;
+  transform: rotate(-5deg);
+  opacity: 0.82;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* --------------------------------------------------------------------------
+   Typewriter utilities
+   -------------------------------------------------------------------------- */
+
+.tw {
+  font-family: var(--tw);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.desk-note {
+  margin: var(--space-8) auto var(--space-6);
+  max-width: 640px;
+  text-align: center;
+  color: var(--paper-aged);
+  font-size: 0.85rem;
+
+  .fn-inline {
+    display: block;
+    margin-top: var(--space-1);
+    font-size: 0.72rem;
+    color: oklch(0.66 0.02 85);
+  }
+}
+
+sup {
+  font-size: 0.62em;
+  line-height: 0;
+  color: var(--stamp);
+  font-family: var(--tw);
+}
+
+.footnotes {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid oklch(0.26 0.02 265 / 0.25);
+  width: 60%;
+  min-width: 0;
+  list-style: none;
+  counter-reset: fn;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+
+  li {
+    counter-increment: fn;
+    padding-left: 1.2em;
+    text-indent: -1.2em;
+    margin-bottom: var(--space-1);
+
+    &::before {
+      content: counter(fn) ". ";
+      font-family: var(--tw);
+      color: var(--stamp);
+      font-size: 0.85em;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Card grid — the drawer, viewed from above
+   -------------------------------------------------------------------------- */
+
+.card-grid {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: var(--space-8) var(--space-6);
+  padding-top: var(--space-5); /* room for tabs */
+  align-items: stretch;
+}
+
+@container (max-width: 700px) {
+  .card, .flip-scene { --tilt: 0deg; }
+  .card-head, .card-body { padding-inline: var(--space-4); }
+}
+
+@media (max-width: 420px) {
+  .footnotes { width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Link cards (Cards 2 & 3) — the entire card is the handle
+   -------------------------------------------------------------------------- */
+
+.card-link {
+  text-decoration: none;
+  transition: var(--transition-base);
+
+  .cta {
+    margin-top: auto;
+    padding-top: var(--space-3);
+    font-family: var(--tw);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--link-ink);
+  }
+
+  &:hover {
+    transform: rotate(0deg) translate(-3px, -4px);
+    box-shadow: var(--shadow-lift);
+
+    .cta { text-decoration: underline; text-underline-offset: 3px; }
+  }
+
+  &:active {
+    transform: rotate(0deg) translate(2px, 2px);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.35), 2px 2px 0 oklch(0 0 0 / 0.26);
+  }
+}
+
+.subtitle {
+  margin: 0;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   Card 1 — the flip card. Physically rotates, as cards do.
+   -------------------------------------------------------------------------- */
+
+/* Tilted like the others, but the tilt is static: a card with a button on it
+   should not move the button while you reach for it. */
+.flip-scene {
+  perspective: 1400px;
+  position: relative;
+  --tilt: -1.1deg;
+  transform: rotate(var(--tilt));
+}
+
+.flip-inner {
+  /* Both faces share one grid cell, so the card is as tall as its taller side */
+  display: grid;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s var(--ease-out);
+}
+
+/* State lives on the button's aria-expanded; CSS reads it via :has() */
+.flip-scene:has([aria-expanded="true"]) .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--paper-aged); /* the back of the card has seen things */
+}
+
+.flip-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.3rem 0.8rem;
+  font-family: var(--tw);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--link-ink);
+  background: transparent;
+  border: 1px dashed oklch(0.42 0.11 250 / 0.55);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: var(--transition-fast);
+
+  &:hover {
+    background: color-mix(in oklch, var(--link-ink) 8%, transparent);
+    border-style: solid;
+  }
+}
+
+.link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li { margin-bottom: var(--space-2); }
+
+  a {
+    color: var(--link-ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: oklch(0.42 0.11 250 / 0.4);
+    text-underline-offset: 3px;
+    transition: var(--transition-fast);
+
+    &:hover { text-decoration-color: var(--link-ink); }
+  }
+
+  .link-note {
+    display: block;
+    font-size: 0.78rem;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Project catalog cards
+   -------------------------------------------------------------------------- */
+
+.meta {
+  margin: 0 0 var(--space-3);
+  font-family: var(--tw);
+  font-size: 0.8rem;
+
+  > div { display: flex; gap: var(--space-2); }
+
+  dt {
+    color: var(--ink-faint);
+    min-width: 5.5em;
+  }
+
+  dd { margin: 0; font-weight: 700; }
+}
+
+.proj .cta {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-family: var(--tw);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--link-ink);
+  text-decoration: none;
+  border-bottom: 1px solid oklch(0.42 0.11 250 / 0.4);
+  transition: var(--transition-fast);
+
+  &:hover { border-bottom-color: var(--link-ink); }
+}
+
+.card--blank {
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed oklch(0.26 0.02 265 / 0.3);
+  background: oklch(0.955 0.017 95 / 0.55);
+  box-shadow: none;
+  text-align: center;
+  color: var(--ink-soft);
+  font-style: italic;
+  padding: var(--space-6);
+}
+
+/* Scroll reveal for catalog cards — pure CSS, respectfully optional */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes card-in {
+    from { opacity: 0; transform: rotate(var(--tilt)) translateY(18px); }
+    to   { opacity: 1; transform: rotate(var(--tilt)) translateY(0); }
+  }
+
+  .card-grid > .card,
+  .card-grid > .flip-scene {
+    animation: card-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 28%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   The Responsible Version (recruiter page)
+   -------------------------------------------------------------------------- */
+
+.cv-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: 820px;
+  margin: 0 auto;
+  padding-top: var(--space-5);
+}
+
+.cv-entry {
+  margin-bottom: var(--space-4);
+
+  &:last-child { margin-bottom: 0; }
+
+  .cv-role {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.02rem;
+  }
+
+  .cv-where {
+    font-family: var(--tw);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+
+  ul {
+    margin: var(--space-1) 0 0;
+    padding-left: 1.2em;
+    font-size: 0.95rem;
+  }
+}
+
+.skill-group {
+  margin-bottom: var(--space-3);
+
+  .skill-label {
+    font-family: var(--tw);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 var(--space-2);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.1rem 0.65rem;
+    font-family: var(--tw);
+    font-size: 0.78rem;
+    background: var(--paper-aged);
+    border: 1px solid oklch(0.26 0.02 265 / 0.28);
+    border-radius: 3px;
+  }
+}
+
+.table-wrap { overflow-x: auto; }
+
+.pub-table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+
+  th {
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    font-family: var(--tw);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-bottom: 2px solid var(--rule-red);
+  }
+
+  td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--rule-blue);
+    vertical-align: top;
+  }
+
+  tbody tr { transition: var(--transition-fast); }
+  tbody tr:hover { background: var(--paper-aged); }
+
+  a { color: var(--link-ink); }
+}
+
+/* --------------------------------------------------------------------------
+   Colophon — every collection has one
+   -------------------------------------------------------------------------- */
+
+.colophon {
+  max-width: 640px;
+  margin: var(--space-8) auto 0;
+  padding: var(--space-5) var(--space-5) var(--space-8);
+  text-align: center;
+  color: oklch(0.66 0.02 85);
+
+  .colophon-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 var(--space-2);
+  }
+
+  .cite {
+    margin: 0 0 var(--space-4);
+    font-size: 0.85rem;
+    font-style: normal;
+    line-height: 1.6;
+  }
+
+  .due {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+
+    del { opacity: 0.55; }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Whimsy annex — everything below is unnecessary, which is why it matters
+   -------------------------------------------------------------------------- */
+
+/* The desk lamp. Pull the cord for after-hours cataloguing. */
+.lamp-cord {
+  position: fixed;
+  top: 0;
+  right: clamp(1.25rem, 5vw, 3.5rem);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transform-origin: top center;
+}
+
+.cord-line {
+  width: 2px;
+  height: 62px;
+  background: linear-gradient(to bottom, oklch(0.50 0.04 85), var(--brass));
+}
+
+.cord-pull {
+  width: 13px;
+  height: 13px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 1px 3px oklch(0 0 0 / 0.5), inset 0 -2px 2px oklch(0 0 0 / 0.25);
+  transition: var(--transition-fast);
+}
+
+.lamp-cord:hover .cord-pull { transform: translateY(3px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .lamp-cord.swinging { animation: cord-swing 0.9s var(--ease-out); }
+
+  @keyframes cord-swing {
+    25%  { transform: rotate(7deg); }
+    60%  { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+}
+
+/* After hours: one uniform layer of dusk over the whole desk */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: oklch(0.06 0.01 70);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+body[data-lamp="off"]::after { opacity: 0.4; }
+
+/* Pencil marginalia — annotations nobody requested */
+.margin-note {
+  display: inline-block;
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  color: oklch(0.45 0.015 260 / 0.85);
+  transform: rotate(-2.5deg);
+  margin-left: var(--space-2);
+}
+
+.margin-note--right {
+  display: block;
+  text-align: right;
+  margin-top: var(--space-2);
+  transform: rotate(-1.5deg);
+}
+
+/* Washi tape: holding the name card to the desk since [year unknown] */
+.tape::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 116px;
+  height: 26px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: oklch(0.85 0.045 210 / 0.4);
+  border-left: 1px dashed oklch(1 0 0 / 0.5);
+  border-right: 1px dashed oklch(1 0 0 / 0.5);
+  box-shadow: 0 1px 2px oklch(0 0 0 / 0.15);
+}
+
+/* Coffee ring — evidence of process */
+.coffee-ring::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  right: 44px;
+  width: 66px;
+  height: 60px;
+  border: 7px solid oklch(0.52 0.09 55 / 0.2);
+  border-radius: 50%;
+  transform: rotate(-9deg);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Barcode. It encodes nothing. */
+.barcode {
+  position: absolute;
+  left: var(--space-5);
+  bottom: var(--space-4);
+  width: 96px;
+  height: 24px;
+  opacity: 0.7;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0 2px, transparent 2px 4px,
+    var(--ink) 4px 7px, transparent 7px 8px,
+    var(--ink) 8px 9px, transparent 9px 12px
+  );
+}
+
+.has-barcode .card-body { padding-bottom: calc(var(--space-6) + 24px); }
+
+/* Keyboard keys, index-card colored */
+kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 5px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--paper-shade);
+  border-bottom-width: 3px;
+  border-radius: 3px;
+  font-family: var(--tw);
+  font-size: 0.68rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.kbd-row {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.72rem;
+  color: oklch(0.66 0.02 85);
+}
+
+/* Current status — subject to the observer effect */
+.status-line {
+  margin-top: var(--space-2);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.reroll {
+  padding: 0 2px;
+  margin-left: var(--space-1);
+  background: none;
+  border: none;
+  border-bottom: 1px dashed currentColor;
+  font-family: var(--tw);
+  font-size: 0.72rem;
+  color: var(--link-ink);
+  cursor: pointer;
+
+  &:hover { border-bottom-style: solid; }
+}
+
+/* Search the holdings */
+.search-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+
+  label { color: var(--ink-faint); }
+
+  input {
+    flex: 1;
+    min-width: 150px;
+    padding: 2px 4px;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px dashed oklch(0.26 0.02 265 / 0.4);
+    font-family: var(--tw);
+    font-size: 0.85rem;
+    color: var(--ink);
+
+    &:focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 3px;
+      border-bottom: 1.5px solid var(--link-ink);
+    }
+  }
+
+  .count {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+}
+
+/* Stamps press slightly harder when the card is considered */
+.card-link .stamp { transition: transform 0.25s var(--ease-out); }
+.card-link:hover .stamp { transform: rotate(-3deg) scale(1.06); }
+
+/* --------------------------------------------------------------------------
+   Print — because someone will print the recruiter page, and that is fine
+   -------------------------------------------------------------------------- */
+
+@media print {
+  body { background: oklch(1 0 0); }
+  body::before,
+  body::after { display: none; }
+  .card, .flip-scene { --tilt: 0deg; box-shadow: none; border: 1px solid var(--paper-shade); }
+  .drawer-label, .breadcrumb, .colophon .due,
+  .lamp-cord, .flip-btn, .reroll, .search-row, .kbd-row,
+  .margin-note, .barcode { display: none; }
+  .tape::before, .coffee-ring::after { display: none; }
+}
+
+/* ==========================================================================
+   FLUID EDITION ANNEX
+   Later rules deliberately override the sections above so the fluid variant
+   stays diffable against the original stylesheet.
+   ========================================================================== */
+
+:root {
+  /* Paper has momentum: a slight overshoot for physical moves */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-flip:   cubic-bezier(0.30, 1.25, 0.55, 1);
+  /* Darker faint ink — the tiny uppercase metadata earns its contrast */
+  --ink-faint: oklch(0.48 0.015 265);
+}
+
+/* --------------------------------------------------------------------------
+   Cross-document view transitions — pages change like cards in one drawer.
+   Unsupported browsers simply navigate; nothing is lost.
+   -------------------------------------------------------------------------- */
+
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) { animation-duration: 0.22s; }
+::view-transition-new(root) { animation-duration: 0.30s; }
+
+/* The drawer plate morphs from page to page; the lamp cord holds still */
+.drawer-plate { view-transition-name: drawer-plate; }
+.lamp-cord    { view-transition-name: lamp-cord; }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+
+  /* Belt and suspenders for engines that ignore the nested rule above */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+
+/* --------------------------------------------------------------------------
+   Fluid type and spacing — clamp() instead of breakpoints
+   -------------------------------------------------------------------------- */
+
+.card-head h1 { font-size: clamp(1.7rem, 1.15rem + 2.2vw, 2.5rem); text-wrap: balance; }
+.card-head h2 { font-size: clamp(1.28rem, 1.08rem + 0.8vw, 1.6rem); text-wrap: balance; }
+.card-body p  { text-wrap: pretty; }
+
+.page {
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 3vw, 1.5rem) clamp(2rem, 5vw, 3rem);
+}
+
+.card-grid {
+  gap: clamp(2.2rem, 1.6rem + 2vw, 3rem) clamp(1.25rem, 2.5vw, 2rem);
+}
+
+html { scrollbar-gutter: stable; }
+
+/* --------------------------------------------------------------------------
+   The desk holds still on every engine — background-attachment: fixed is
+   ignored on iOS Safari, so the desk is painted on a fixed layer instead.
+   -------------------------------------------------------------------------- */
+
+body { background: var(--desk-deep); }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, oklch(1 0 0 / 0.008) 0 2px, transparent 2px 7px),
+    radial-gradient(120% 90% at 50% -10%, var(--desk-grain), var(--desk) 55%, var(--desk-deep) 100%);
+}
+
+/* --------------------------------------------------------------------------
+   Springier paper
+   -------------------------------------------------------------------------- */
+
+.card-link {
+  transition:
+    transform 0.38s var(--ease-spring),
+    box-shadow 0.38s var(--ease-out);
+}
+
+.flip-inner { transition: transform 0.7s var(--ease-flip); }
+
+.proj .cta {
+  transition: transform 0.3s var(--ease-spring), border-color 0.14s var(--ease-out);
+
+  &:hover { transform: translateX(4px); }
+}
+
+.card-link .stamp { transition: transform 0.3s var(--ease-spring); }
+
+.cord-pull { transition: transform 0.3s var(--ease-spring); }
+
+/* --------------------------------------------------------------------------
+   The status settles in when observed
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  #status-slot.observed {
+    display: inline-block;
+    animation: settle-in 0.45s var(--ease-spring);
+  }
+
+  @keyframes settle-in {
+    from { opacity: 0; transform: translateY(4px) rotate(-0.5deg); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* Bigger target for the smallest button on the site */
+.reroll { padding: 2px 6px; }
+
+/* --------------------------------------------------------------------------
+   The empty state eases in, courtesy of @starting-style
+   -------------------------------------------------------------------------- */
+
+#no-results {
+  opacity: 1;
+  transition: opacity 0.35s var(--ease-out), display 0.35s allow-discrete;
+
+  @starting-style { opacity: 0; }
+}
+
+/* After-hours, slightly gentler on the eyes */
+body[data-lamp="off"]::after { opacity: 0.36; }
+
+/* --------------------------------------------------------------------------
+   REVIEW ANNEX — adopted findings from the cross-model review, verified
+   -------------------------------------------------------------------------- */
+
+/* Flip no longer depends on :has(): JS toggles the class, :has() is backup */
+.flip-scene.is-flipped .flip-inner { transform: rotateY(180deg); }
+
+/* Skip-link reveal, flattened for engines without native CSS nesting */
+.skip-link:focus-visible { top: var(--space-4); }
+
+/* Fluid ruling: the lines and the text on them scale together */
+:root { --line: clamp(24px, 22px + 0.5vw, 28px); }
+.card-body { font-size: clamp(0.96rem, 0.9rem + 0.25vw, 1.05rem); }
+
+/* Paragraph rhythm locked to the printed ruling: skip a line, like on paper */
+.card-body p { margin: 0 0 var(--line); }
+
+/* The search row gets room to breathe on the ruled lines */
+.search-row { padding-block: 0.25rem; }
+.search-row input { line-height: 1.4; }
+
+/* Anchor jumps land with a little headroom */
+html { scroll-padding-top: 2rem; }
+
+/* Reroll: small button, honest hit target */
+.reroll { min-block-size: 24px; }
+
+/* After hours, the desk notes stay legible under the dusk layer */
+body[data-lamp="off"] .desk-note .fn-inline,
+body[data-lamp="off"] .kbd-row,
+body[data-lamp="off"] .colophon { color: oklch(0.82 0.02 85); }
+
+/* Placeholder links: the card is not filed yet, and says so physically */
+a[href="#"].cta { cursor: help; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .card.not-filed { animation: not-filed 0.4s var(--ease-out); }
+
+  @keyframes not-filed {
+    25% { transform: rotate(var(--tilt)) translateX(-4px); }
+    75% { transform: rotate(var(--tilt)) translateX(4px); }
+  }
+}
+
+/* Print: no card is ever split across pages; the table prints whole */
+@media print {
+  .card { break-inside: avoid; page-break-inside: avoid; }
+  .table-wrap { overflow: visible; }
+  .pub-table { min-width: 0; }
+}
+
+/* Honor reduced motion across the interaction and ambient layers. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  body::after { transition: none; }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bardouille, M. — The Collection</title>
+  <meta name="description" content="Mhea Bardouille: a person who once turned a Spotify playlist into a thesis paper and has not been the same since. Filed under: people, generally reliable.">
+  <meta property="og:title" content="Bardouille, M. — The Collection">
+  <meta property="og:description" content="A person who once turned a Spotify playlist into a thesis paper and has not been the same since.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='11' width='58' height='42' rx='5' fill='%23F1EDDE' stroke='%23B0A98F' stroke-width='2'/><path d='M3 24h58' stroke='%23C4573B' stroke-width='2.5'/><path d='M10 34h44M10 42h44' stroke='%238FA5C8' stroke-width='1.5'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;family=Caveat:wght@500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-shortcuts="drawers" data-away-title="(the drawer is still open)">
+  <a class="skip-link" href="#main">Skip to the cards</a>
+
+  <button class="lamp-cord js-only" id="lamp-cord" type="button" aria-pressed="false"
+          aria-label="Toggle the desk lamp" title="the lamp (its electricity bill is a footnote)">
+    <span class="cord-line"></span><span class="cord-pull"></span>
+  </button>
+
+  <header class="drawer-label">
+    <span class="drawer-plate">The Bardouille Collection &middot; Drawer 1 of 1 &middot; Misc.</span>
+  </header>
+
+  <main id="main" class="page">
+    <p id="interaction-feedback" class="sr-only" role="status" aria-live="polite"></p>
+
+    <!-- The name card. Surname first; this is a catalog, not a party. -->
+    <section class="card card--wide tape" aria-labelledby="site-name">
+      <div class="card-head">
+        <p class="catalog-no">Cat. no. MB-0001 &middot; Filed under: People, generally reliable</p>
+        <h1 id="site-name">Bardouille, Mhea</h1>
+      </div>
+      <div class="card-body">
+        <p>A person who once turned a Spotify playlist into a thesis paper<sup>1</sup> and
+        has not been the same since.<sup>2</sup>
+        <span class="margin-note">true story &mdash; ed.</span></p>
+        <p class="tw status-line">current status: <span id="status-slot" aria-live="polite" aria-atomic="true">writing, allegedly</span>
+          <button class="reroll js-only" id="status-reroll" type="button"
+                  title="n.b. the status is subject to the observer effect">re-observe</button>
+        </p>
+        <ol class="footnotes">
+          <li>Successfully defended. The committee had questions; the playlist had answers.</li>
+          <li>Longitudinal follow-up ongoing. Results forthcoming.</li>
+        </ol>
+      </div>
+    </section>
+
+    <p class="tw desk-note">
+      Pick a card. This is a filing system, not a metaphor.<sup>3</sup>
+      <span class="fn-inline">3. It is at least 40% metaphor.</span>
+      <span class="kbd-row">or press <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> &mdash; the drawers respond</span>
+    </p>
+
+    <div class="card-grid">
+
+      <!-- CARD 1 — got two minutes? Flips over, as cards do. -->
+      <div class="flip-scene">
+        <div class="flip-inner">
+          <section class="card flip-face flip-front" aria-labelledby="card1-title">
+            <span class="tab tab--green">Card 1</span>
+            <div class="card-head">
+              <p class="catalog-no">Acc. no. 001 &middot; For the time-constrained reader</p>
+              <h2 id="card1-title">got two minutes?</h2>
+            </div>
+            <div class="card-body">
+              <p class="subtitle">An executive summary, in card form.</p>
+              <p>Three links. Zero commitment. The abstract of the abstract.</p>
+              <button class="flip-btn js-only" type="button" data-flip aria-expanded="false" aria-controls="card1-back">
+                flip for links &rarr;
+              </button>
+              <noscript>
+                <!-- The card cannot flip without JavaScript; the links appear here instead -->
+                <p class="tw"><span>LinkedIn link pending</span>
+                &middot; <a href="projects.html">Card 2</a>
+                &middot; <a href="recruiter.html">Card 3</a></p>
+              </noscript>
+            </div>
+          </section>
+
+          <section class="card flip-face flip-back" id="card1-back" inert aria-hidden="true" aria-labelledby="card1-back-title">
+            <div class="card-head">
+              <p class="catalog-no">Reverse side &middot; As promised</p>
+              <h2 id="card1-back-title">three links</h2>
+            </div>
+            <div class="card-body">
+              <ul class="link-list">
+                <li>
+                  <!-- REPLACE-ME: real LinkedIn URL -->
+                  <a href="#" data-placeholder="linkedin" aria-disabled="true" tabindex="-1" rel="me">Highlights &mdash; LinkedIn &#8599;</a>
+                  <span class="link-note">the sanctioned summary</span>
+                </li>
+                <li>
+                  <a href="projects.html">Actually, I have time &rarr; Card 2</a>
+                  <span class="link-note">the full project catalog</span>
+                </li>
+                <li>
+                  <a href="recruiter.html">Actually, I'm hiring &rarr; Card 3</a>
+                  <span class="link-note">the responsible version</span>
+                </li>
+              </ul>
+              <button class="flip-btn js-only" type="button" data-flip>&larr; flip back</button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- CARD 2 — procrastinating? -->
+      <a class="card card-link tilt-r" href="projects.html" aria-labelledby="card2-title">
+        <span class="tab tab--teal">Card 2</span>
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 002 &middot; See also: everything</p>
+          <h2 id="card2-title">procrastinating?</h2>
+        </div>
+        <div class="card-body">
+          <p class="subtitle">(same, no judgement)</p>
+          <p>The full project catalog: everything I built instead of the thing I was supposed to be doing at the time.</p>
+          <span class="cta">&rarr; open the catalog</span>
+        </div>
+        <span class="stamp" aria-hidden="true">No judgement</span>
+      </a>
+
+      <!-- CARD 3 — a recruiter? -->
+      <a class="card card-link tilt-l" href="recruiter.html" aria-labelledby="card3-title">
+        <span class="tab tab--amber">Card 3</span>
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 003 &middot; Certified serious</p>
+          <h2 id="card3-title">a recruiter?</h2>
+        </div>
+        <div class="card-body">
+          <p class="subtitle">(or want to work with me)</p>
+          <p>The responsible version of this website. One clear paragraph. Real dates. A table, even.</p>
+          <span class="cta">&rarr; proceed responsibly</span>
+        </div>
+        <span class="stamp" aria-hidden="true">Official copy</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer class="colophon">
+    <p class="tw colophon-label">How to cite this page</p>
+    <p class="cite">
+      Bardouille, M. (<span id="cite-year">2026</span>). <em>Mhea Bardouille</em>
+      [Personal website; index cards, digital]. GitHub Pages.
+      (Retrieved: just now, presumably.)
+    </p>
+    <p class="tw due">Acknowledgements: the committee, the playlist, and caffeine (grant no. &#9749;-001).</p>
+    <p class="tw due">Date due: <del>Jun 2025</del> <del>Oct 2025</del> eventually</p>
+  </footer>
+
+  <script src="catalog.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Card Not Found</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='11' width='58' height='42' rx='5' fill='%23F1EDDE' stroke='%23B0A98F' stroke-width='2'/><path d='M3 24h58' stroke='%23C4573B' stroke-width='2.5'/><path d='M10 34h44M10 42h44' stroke='%238FA5C8' stroke-width='1.5'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&amp;family=Courier+Prime:ital,wght@0,400;0,700&amp;family=Caveat:wght@500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-away-title="(still missing)">
+  <a class="skip-link" href="#main">Skip to the missing card</a>
+
+  <button class="lamp-cord js-only" id="lamp-cord" type="button" aria-pressed="false"
+          aria-label="Toggle the desk lamp" title="the lamp (its electricity bill is a footnote)">
+    <span class="cord-line"></span><span class="cord-pull"></span>
+  </button>
+
+  <header class="drawer-label">
+    <span class="drawer-plate">The Bardouille Collection &middot; Lost &amp; found</span>
+  </header>
+
+  <main id="main" class="page">
+    <section class="card card--wide tilt-l" aria-labelledby="nf-title">
+      <div class="card-head">
+        <p class="catalog-no">Error 404 &middot; Search of holdings complete</p>
+        <h1 id="nf-title">Card not found</h1>
+      </div>
+      <div class="card-body">
+        <p>This card was checked out and never returned.<sup>1</sup>
+        <span class="margin-note">checked under the desk? &mdash; ed.</span></p>
+        <p><a class="tw" href="index.html"><strong>&larr; return to drawer 1</strong></a></p>
+        <!-- REPLACE-ME: real email, same as the contact card -->
+        <p class="tw">or <a href="mailto:hello@example.com?subject=Missing%20card%20report">file a missing-card report</a></p>
+        <ol class="footnotes">
+          <li>The borrower knows who they are.</li>
+        </ol>
+      </div>
+      <span class="stamp" aria-hidden="true">Overdue</span>
+    </section>
+  </main>
+
+  <script src="catalog.js" defer></script>
+</body>
+</html>

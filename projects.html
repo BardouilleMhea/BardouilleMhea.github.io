@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Catalog — Bardouille, M.</title>
+  <meta name="description" content="The full project catalog of Mhea Bardouille. Everything built instead of the thing that was supposed to be built at the time.">
+  <meta property="og:title" content="Card Catalog — Bardouille, M.">
+  <meta property="og:description" content="Full holdings. Sorted reverse-chronologically, approximately. The librarian is also the collection.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='3' y='11' width='58' height='42' rx='5' fill='%23F1EDDE' stroke='%23B0A98F' stroke-width='2'/><path d='M3 24h58' stroke='%23C4573B' stroke-width='2.5'/><path d='M10 34h44M10 42h44' stroke='%238FA5C8' stroke-width='1.5'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;family=Caveat:wght@500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-away-title="still filed under: procrastination">
+  <a class="skip-link" href="#main">Skip to the catalog</a>
+
+  <button class="lamp-cord js-only" id="lamp-cord" type="button" aria-pressed="false"
+          aria-label="Toggle the desk lamp" title="the lamp (its electricity bill is a footnote)">
+    <span class="cord-line"></span><span class="cord-pull"></span>
+  </button>
+
+  <header class="drawer-label">
+    <span class="drawer-plate">The Bardouille Collection &middot; Drawer 2 &middot; Projects, complete holdings</span>
+  </header>
+  <a class="breadcrumb" href="index.html">&larr; return card to drawer 1</a>
+
+  <main id="main" class="page">
+
+    <section class="card card--wide coffee-ring" aria-labelledby="catalog-title">
+      <div class="card-head">
+        <p class="catalog-no">Guide card &middot; Read before rummaging</p>
+        <h1 id="catalog-title">Card Catalog &mdash; Full Holdings</h1>
+      </div>
+      <div class="card-body">
+        <p>Every project, one card each. Sorting system: reverse-chronological, approximately.<sup>1</sup>
+           Each card opens the real write-up (or repo) underneath.</p>
+        <p class="tw search-row js-only">
+          <label for="catalog-search">search holdings:</label>
+          <input id="catalog-search" type="search" placeholder="e.g., playlist" autocomplete="off" aria-controls="holdings-grid" aria-describedby="holdings-count">
+          <span class="count" id="holdings-count" aria-live="polite" aria-atomic="true">n = 5</span>
+        </p>
+        <ol class="footnotes">
+          <li>The librarian is also the entire collection, so complaints about the filing go nowhere.</li>
+        </ol>
+        <span class="margin-note margin-note--right">the ring is evidence of process &mdash; ed.</span>
+      </div>
+    </section>
+
+    <p class="tw desk-note">You said you were procrastinating. The catalog respects your honesty.</p>
+
+    <p id="interaction-feedback" class="sr-only" role="status" aria-live="polite"></p>
+
+    <div class="card-grid" id="holdings-grid">
+
+      <!-- The founding document -->
+      <article class="card proj tilt-l">
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 2024-001 &middot; Status: defended</p>
+          <h2>Thesis &rarr; Playlist</h2>
+        </div>
+        <div class="card-body">
+          <dl class="meta">
+            <div><dt>filed:</dt><dd>Card Catalog</dd></div>
+            <div><dt>contains:</dt><dd>40 songs, 1 defended argument</dd></div>
+          </dl>
+          <p>The founding document of this entire website. A Spotify playlist, taken seriously past the point of no return.</p>
+          <!-- REPLACE-ME: link to the actual writeup or repo -->
+          <a class="cta" href="#" aria-disabled="true" tabindex="-1">&rarr; open</a>
+        </div>
+        <span class="stamp" aria-hidden="true">Defended</span>
+      </article>
+
+      <!-- Placeholder cards: replace titles, metadata, and links with real projects -->
+      <article class="card proj tilt-r">
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 2025-002 &middot; Status: in review</p>
+          <h2>[Project Title]</h2>
+        </div>
+        <div class="card-body">
+          <dl class="meta">
+            <div><dt>filed:</dt><dd>[category]</dd></div>
+            <div><dt>contains:</dt><dd>[what's actually in it]</dd></div>
+          </dl>
+          <p>[One or two sentences. What it is, why it exists, what it taught you. Deadpan preferred.]</p>
+          <!-- REPLACE-ME: repo or writeup link -->
+          <a class="cta" href="#" aria-disabled="true" tabindex="-1">&rarr; open</a>
+        </div>
+        <span class="stamp" aria-hidden="true">In review</span>
+      </article>
+
+      <article class="card proj">
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 2025-003 &middot; Status: revise &amp; resubmit</p>
+          <h2>[Project Title]</h2>
+        </div>
+        <div class="card-body">
+          <dl class="meta">
+            <div><dt>filed:</dt><dd>[category]</dd></div>
+            <div><dt>contains:</dt><dd>[deliverables, roughly]</dd></div>
+          </dl>
+          <p>[Description. "Revise &amp; resubmit" here means v2 is planned and v1 knows it.]</p>
+          <a class="cta" href="#" aria-disabled="true" tabindex="-1">&rarr; open</a>
+        </div>
+      </article>
+
+      <article class="card proj tilt-l">
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 2026-004 &middot; Status: forthcoming</p>
+          <h2>[Project Title]</h2>
+        </div>
+        <div class="card-body">
+          <dl class="meta">
+            <div><dt>filed:</dt><dd>[category]</dd></div>
+            <div><dt>contains:</dt><dd>ambition, mostly</dd></div>
+          </dl>
+          <p>[Description. Note: "forthcoming" is a word doing a great deal of heavy lifting.]</p>
+          <a class="cta" href="#" aria-disabled="true" tabindex="-1">&rarr; open (eventually)</a>
+          <span class="margin-note margin-note--right">narrator: it was not. &mdash; ed.</span>
+        </div>
+      </article>
+
+      <article class="card proj tilt-r">
+        <div class="card-head">
+          <p class="catalog-no">Acc. no. 2023-005 &middot; Status: archived</p>
+          <h2>[Project Title]</h2>
+        </div>
+        <div class="card-body">
+          <dl class="meta">
+            <div><dt>filed:</dt><dd>[category]</dd></div>
+            <div><dt>contains:</dt><dd>lessons, some learned</dd></div>
+          </dl>
+          <p>[Description. Abandoned, but strategically. A retreat, not a rout.]</p>
+          <a class="cta" href="#" aria-disabled="true" tabindex="-1">&rarr; open</a>
+        </div>
+        <span class="stamp" aria-hidden="true">Withdrawn</span>
+      </article>
+
+      <!-- The blank card stays. It's load-bearing, emotionally. -->
+      <article class="card card--blank" aria-label="Blank card">
+        <p>This card intentionally left blank.<br>
+        <span class="tw">(space reserved for the next idea)</span></p>
+      </article>
+
+      <!-- Shown only when the search turns up nothing -->
+      <article class="card card--blank" id="no-results" hidden role="status" aria-live="polite" aria-atomic="true" aria-label="No matching holdings">
+        <p>No holdings match.<br>
+        <span class="tw">(the librarian suggests broader terms, or lower standards)</span></p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="colophon">
+    <p class="tw colophon-label">Catalog note</p>
+    <p class="cite">Holdings are updated on an irregular schedule best described as "when something is finished enough to admit to."</p>
+    <p class="tw due">Missing cards: presumed checked out</p>
+  </footer>
+
+  <script src="catalog.js" defer></script>
+</body>
+</html>
