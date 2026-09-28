@@ -1016,7 +1016,6 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  pointer-events: none;
   background:
     repeating-linear-gradient(90deg, oklch(1 0 0 / 0.008) 0 2px, transparent 2px 7px),
     radial-gradient(120% 90% at 50% -10%, var(--desk-grain), var(--desk) 55%, var(--desk-deep) 100%);
